@@ -1,0 +1,149 @@
+.main-connexion{
+    height: 550px;
+}
+
+.hidden {
+    display: none;
+}
+
+.bg-dark {
+    background-color: #12002b;
+    display: flex;
+    height: 100%;
+}
+
+.flex-content{
+    display: flex;
+    width: 100%;
+
+}
+
+.sign-in-content {
+    box-sizing: border-box;
+    background-color: white;
+    width: 300px;
+    margin: 0 auto;
+    padding: 2rem;
+    height: 400px;
+    top: 50px;
+    position: relative;
+}
+
+.fa {
+  margin-right: 5px;
+}
+
+.content-title{
+    text-align: center;
+    width: 100%;
+}
+
+form{
+    display: block;
+    margin-top: 0em;
+}
+
+.input-wrapper {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    margin-bottom: 1rem;
+}
+
+.space-label{
+    height: 30px;
+}
+
+.input-remember {
+    display: flex;
+}
+
+.label-title{
+    font-weight: 500;
+}
+
+.sign-in-button {
+    display: flex;
+    width: 95%;
+    padding: 8px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-top: 1rem;
+    border-color: #00bc77;
+    background-color: #00bc77;
+    color: #fff;
+}
+
+.logOut{
+    display: flex;
+    align-items: center;
+}
+
+.props{
+    margin-right: 50px;
+}
+
+.text-button{
+    width: 100%;
+    text-align: center;
+}
+
+.user-style{
+    color: grey;
+    
+}
+
+.border-style{
+    width: 30px;
+    height:30px;
+    border-radius: 50%;
+    background-color: lightgray;
+    margin-right: 10px;
+    align-content: center;
+    text-align: center;
+}
+
+span{
+    display: inline-block;
+    width: 80px;
+}
+
+.error{
+    width: 200px;
+    color: red;
+}
+
+.error-Space{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 80px;
+    background-color: #12002b;
+    color: white;
+}
+
+.errorPage{
+    width: 100%;
+    margin-top: 150px;
+    font-size: 80px;
+    text-align: center;
+}
+
+.errorText{
+    width: 400px;
+    text-align-last: justify;
+    margin-top: 50px;
+    font-size: larger;
+}
+
+.errorLink{
+    margin-top: 30px;
+    margin-bottom:100px;
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.linksHelp{
+    color: white;
+}

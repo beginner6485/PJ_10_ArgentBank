@@ -1,0 +1,329 @@
+swagger: '2.0'
+info:
+  title: Bank Argent API documentation
+  description: Contains all available API endpoints in this codebase
+  version: '1.0.0'
+  termsOfService: 'http://swagger.io/terms/'
+host: localhost:3001
+basePath: /api/v1
+schemes:
+  - http
+paths:
+  /user/login:
+    post:
+      tags:
+        - User Module
+      summary: Login
+      description: API for Login
+      parameters:
+        - in: body
+          name: body
+          description: Login Payload
+          required: true
+          schema:
+            $ref: '#/definitions/Login'
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Login Successfully
+          schema:
+            $ref: '#/definitions/LoginResponse'
+        '400':
+          description: Invalid Fields
+        '500':
+          description: Internal Server Error
+  /user/signup:
+    post:
+      tags:
+        - User Module
+      summary: Signup
+      description: API for Signup
+      parameters:
+        - in: body
+          name: body
+          description: Signup Payload
+          required: true
+          schema:
+            $ref: '#/definitions/User'
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Signup Successfully
+          schema:
+            $ref: '#/definitions/ApiResponse'
+        '400':
+          description: Invalid Fields
+        '500':
+          description: Internal Server Error
+  /user/profile:
+    post:
+      security:
+        - Bearer: []
+      tags:
+        - User Module
+      summary: User Profile API
+      description: API for fetching a user profile
+      parameters:
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: User profile retrieved successully
+          schema:
+            $ref: '#/definitions/ApiResponse'
+        '400':
+          description: Invalid Fields
+        '500':
+          description: Internal Server Error
+    put:
+      security:
+        - Bearer: []
+      tags:
+        - User Module
+      summary: User Profile API
+      description: API for updating a user profile
+      parameters:
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+        - in: body
+          name: body
+          description: Update user profile attributes
+          required: true
+          schema:
+            $ref: '#/definitions/UserProfile'
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: User profile retrieved successully
+          schema:
+            $ref: '#/definitions/ApiResponse'
+        '400':
+          description: Invalid Fields
+        '500':
+          description: Internal Server Error
+
+  /transaction:
+    get:
+      security:
+        - Bearer: []
+      tags:
+        - Transactions
+      summary: Account Banking Details
+      description: Details of transaction by Id
+      parameters:
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+        - in: body
+          name: body
+          description: Update user profile attributes
+          required: true
+          schema:
+            $ref: '#/definitions/Transactions'
+      responses:
+        '200':
+          description: User transaction detail retrieved successully
+          schema:
+            $ref: '#/definitions/TransactionId'
+        '404':
+          description: Information Not Found
+        '500':
+          description: Internal Server Error
+
+    delete: 
+      security:
+        - Bearer: []
+      tags:
+        - Transactions
+      summary: Delete a transaction
+      description: This can only be done by the logged in user.
+      parameters:
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+        - name: transactionId
+          in: path
+          description: Transaction needs to be deleted
+          required: true
+      produces:
+        - application/json
+      responses:
+        '400':
+          description: Invalid transaction Id Fields
+        '404':
+          description: Operation Not Found
+        '500':
+          description: Internal Server Error
+
+  /transaction/note:
+    put:
+      security:
+        - Bearer: []
+      tags:
+        - Transactions
+      summary: modify information from a transaction
+      description: modify
+      parameters:
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+        - in: body
+          name: body
+          description: Update user profile attributes
+          required: true
+          schema:
+            $ref: '#/definitions/TransactionId'
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Note updated successfully
+          schema:
+            $ref: '#/definitions/TransactionId'
+        '400':
+          description: Invalid Fields
+        '404':
+          description: Transaction Not Found
+        '500':
+          description: Internal Server Error
+    delete: 
+      security:
+        - Bearer: []
+      tags:
+        - Transactions
+      summary: Delete a note
+      description: This can only be done by the logged in user.
+      parameters:
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+        - in: header
+          name: note
+          description: The note that needs to be deleted
+          required: true
+      produces:
+        - application/json
+      responses:
+        '400':
+          description: Invalid note supplied
+        '404':
+          description: Operation Not Found
+        '500':
+          description: Internal Server Error
+
+securityDefinitions:
+  Bearer:
+    type: apiKey
+    name: Authorization
+    in: header
+definitions:
+  User:
+    properties:
+      email:
+        type: string
+        description: user email
+      password:
+        type: string
+        description: user password
+      firstName:
+        type: string
+        description: user first name
+      lastName:
+        type: string
+        description: user last name
+  Login:
+    properties:
+      email:
+        type: string
+        description: user email
+      password:
+        type: string
+        description: user password
+  ApiResponse:
+    type: object
+    properties:
+      status:
+        type: integer
+      message:
+        type: string
+      body:
+        type: object
+        properties:
+          id:
+            type: string
+          email:
+            type: string
+  LoginResponse:
+    type: object
+    properties:
+      token:
+        type: string
+  UserProfile:
+    type: object
+    properties:
+      firstName:
+        type: string
+      lastName:
+        type: string
+  Transactions:
+    type: object
+    properties:
+      transactionId:
+        type: integer
+        format: int64
+        example: 01
+      name:
+        type: string
+        example: bankChecking
+  TransactionId:
+    type: object
+    properties:
+      id: 
+        type: integer
+        format: int64
+        example: 07
+      CompanyId:
+        type: integer
+        format: int64
+        example: 12
+      Name:
+        type: string
+        example: Golden Sun Bakery
+        description: company where the transaction originated
+      date: 
+        type: string
+        format: date-time
+        example : "2024-04-17T14:47:34.106Z"
+      amount: 
+        type: number
+        example: 50.00
+      balance:
+        type: number
+        example: 250.00
+      category: 
+        type: string
+        enum: 
+          - food
+          - daily living expenses
+          - hobbies
+          - tax
+          - saving
+      note:
+        type: [string, number] 
+        description: user can add a note for himself
+  
+     
+
