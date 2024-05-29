@@ -38,9 +38,11 @@ function AccountPage(){
   }, [dispatch, token]);
 
   if (!token) {
-    return <ErrorType/>;
+    return (
+        <ErrorType />
+    );
   }
-
+  
   async function modifyUserInfo(firstName, lastName){
     try {  
 

@@ -28,7 +28,7 @@ const userDataSlice = createSlice({
     },
 
     logOutUser(state) {
-      state.token = null; // Réinitialiser le token lors de la déconnexion
+      state.token = ''; // Réinitialiser le token lors de la déconnexion
       state.firstName = '';
       state.lastName = '';
       state.isAuthenticated = false ; 

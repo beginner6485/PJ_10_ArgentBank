@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import "../style/connexion_style.css"
@@ -13,8 +13,8 @@ function Connexion(){
     
 const [username, setUsername] = useState('tony@stark.com');
 const [password, setPassword] = useState('password123');
-//const [LoginSuccess, setLoginSuccess] = useState(false);
 const [error, setError] = useState(null); 
+const [isNetworkError, setIsNetworkError] = useState(false);
 const [isLoading, setIsLoading] = useState(false);
 const dispatch = useDispatch();
 const navigate = useNavigate();
@@ -27,22 +27,26 @@ const handleLogin = async (e) => {
             const data = await fetchUserData(username, password);
             dispatch(setUserToken(data.body.token));
             setError(null);
-            //setLoginSuccess(true);
             navigate('/AccountPage');
-          } catch (error) {
-            setError(error.message); 
-        } finally {
+        } catch (error) {
+            setError(error.message);
+            if (error instanceof TypeError) {
+              setIsNetworkError(true);
+            } else {
+              setIsNetworkError(false);
+            }
+          } finally {
             setIsLoading(false);
-        }
-    };
-    
+          }
+        };
+
     return(
         <div>
             <Header/>
             {isLoading && <p>Loading...</p>}
             {error && <ErrorType status={error} />} 
            
-            <div className="main-connexion">
+            <div className="main-connexion"style={{ display: isNetworkError ? 'none' : 'block' }}>
                 <div className="bg-dark">
                     <div className="flex-content">
                         <div className="sign-in-content">

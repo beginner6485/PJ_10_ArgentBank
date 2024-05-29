@@ -5,17 +5,18 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons'; 
 import { faUser } from '@fortawesome/free-solid-svg-icons'; 
 import { useDispatch, useSelector } from "react-redux";
-import { logOutUser } from "../redux/action";
+import { logOutUser } from "../redux/reducers";
+import { useNavigate } from "react-router-dom";
 
 function HeaderConnected(){
 
     const dispatch = useDispatch();
-
     const firstName = useSelector(state => state.firstName);
+    const navigate = useNavigate();
 
     const handleLogout = () => {
         dispatch(logOutUser()); // Appeler l'action de déconnexion
-        console.log(token)
+        navigate('/');
     };
 
 return(
@@ -28,10 +29,10 @@ return(
                     <Link to="/AccountPage"><FontAwesomeIcon icon={faUser} className="user-style" /></Link>
                 </div>
                 <div className="props">{firstName}</div>
-                <Link to="/"className="main-nav-item" onClick={handleLogout}>
-                <FontAwesomeIcon icon={faSignOutAlt} className="icon" />
-                <span className="SignOuttxt">Sign out</span>
-                </Link>
+                <div className="main-nav-item" onClick={handleLogout}>
+                    <FontAwesomeIcon icon={faSignOutAlt} className="icon" />
+                    <span className="SignOuttxt">Sign out</span>
+                </div>
             </div>
         </div>
     </div>
